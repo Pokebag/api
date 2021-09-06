@@ -36,14 +36,14 @@ describe(BASE_URL, () => {
 	})
 
 	it('should complete successfully', async () => {
-		const RESPONSE = await requester.get(`${BASE_URL}/aeos-cookie`)
+		const RESPONSE = await requester.get(BASE_URL.replace(':itemID', 'aeos-cookie'))
 
 		chai.expect(RESPONSE).to.have.status(httpStatus.OK)
 			.and.to.be.json
 	})
 
 	it('should generate a JSON:API compliant body', async () => {
-		const { body } = await requester.get(BASE_URL)
+		const { body } = await requester.get(BASE_URL.replace(':itemID', 'aeos-cookie'))
 
 		chai.expect(validator.isValid(body)).to.be.true
 	})

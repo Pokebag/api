@@ -34,16 +34,18 @@ export class SignleHeldItemRoute extends Route {
 				patch: context.params.patchVersion,
 			})
 
-			ITEM.id = itemID
+			const attributes = { ...ITEM }
+
+			delete attributes.id
 
 			if (SHOULD_CALCULATE_STATS) {
 				ITEM.stats = calculateHeldItemStats(ITEM)
 			}
 
 			context.data = {
-				items: {
-					[itemID]: ITEM,
-				},
+				attributes,
+				id: itemID,
+				type: 'heldItem'
 			}
 		} catch (error) {
 			context.errors.push(error.message)

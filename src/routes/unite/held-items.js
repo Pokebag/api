@@ -25,7 +25,7 @@ export class HeldItemsRoute extends Route {
 	 */
 	async handler (context) {
 		try {
-			const CALCULATE_STATS = Boolean(context.query.calculateStats)
+			const SHOULD_CALCULATE_STATS = Boolean(context.query.calculateStats)
 			const ITEMS = await getHeldItems({ patch: context.params.patchVersion })
 
 			context.data = ITEMS.map((item) => {
@@ -33,7 +33,7 @@ export class HeldItemsRoute extends Route {
 
 				delete attributes.id
 
-				if (CALCULATE_STATS) {
+				if (SHOULD_CALCULATE_STATS) {
 					item.stats = calculateHeldItemStats(item)
 				}
 
