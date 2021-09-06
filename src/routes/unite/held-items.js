@@ -25,22 +25,24 @@ export class HeldItemsRoute extends Route {
 	 */
 	async handler (context) {
 		try {
-			const SHOULD_CALCULATE_STATS = JSON.parse(context.query['calculate-stats'] || 'false')
-
+			const CALCULATE_STATS = Boolean(context.query.calculateStats)
 			const ITEMS = await getHeldItems({ patch: context.params.patchVersion })
 
-			if (SHOULD_CALCULATE_STATS) {
-				ITEMS.forEach((item) => {
-					item.stats = calculateHeldItemStats(item)
-				})
-			}
+			context.data = ITEMS.map((item) => {
+				const attributes = { ...item }
 
-			context.data = {
-				items: ITEMS.reduce((accumulator, item) => {
-					accumulator[item.id] = item
-					return accumulator
-				}, {}),
-			}
+				delete attributes.id
+
+				if (CALCULATE_STATS) {
+					item.stats = calculateHeldItemStats(item)
+				}
+
+				return {
+					attributes,
+					id: item.id,
+					type: 'heldItem',
+				}
+			})
 		} catch (error) {
 			context.errors.push(error.message)
 		}

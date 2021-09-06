@@ -47,10 +47,4 @@ describe(BASE_URL, () => {
 
 		chai.expect(validator.isValid(body)).to.be.true
 	})
-
-	it('should generate a JSON:API compliant body', async () => {
-		const { body } = await requester.get(BASE_URL)
-
-		chai.expect(validator.isValid(body)).to.be.true
-	})
 })
