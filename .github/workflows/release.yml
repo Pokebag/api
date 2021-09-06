@@ -2,7 +2,6 @@ name: GH Actions - Release
 on:
   workflow_run:
     workflows:
-      - 'GH Actions - Lint'
       - 'GH Actions - Test'
     branches:
       - 'main'
