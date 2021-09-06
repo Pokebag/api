@@ -11,7 +11,7 @@ function sort(versionA, versionB) {
 
 	if (!versionArrayA.length && !versionArrayB.length) return 0
 
-	return sortVersions(versionArrayA.join('.'), versionArrayB.join('.'))
+	return sortVersions([versionArrayA.join('.'), versionArrayB.join('.')])
 }
 
 export function sortVersions(versionArray) {

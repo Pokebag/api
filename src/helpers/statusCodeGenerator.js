@@ -1,7 +1,7 @@
 export async function statusCodeGenerator(context, next) {
   await next()
 
-  if (!context.status || (context.status === 200)) {
+  if (!context.status) {
     if (context.body.data) {
       context.status = 200
     } else if (context.body.errors) {
