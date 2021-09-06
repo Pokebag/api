@@ -1,3 +1,10 @@
+// Local imports
+import { getVersion } from './getVersion.js'
+
+
+
+
+
 export async function bodyBuilder(context, next) {
   const meta = {
     start_ms: Date.now()
@@ -35,6 +42,7 @@ export async function bodyBuilder(context, next) {
     }
   }
 
+  meta.version = await getVersion()
   meta.end_ms = Date.now()
   meta.response_ms = (meta.end_ms - meta.start_ms)
 
