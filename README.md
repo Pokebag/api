@@ -1,11 +1,9 @@
 <div align="center">
   <h1><code>The Pokébag API</code></h1>
-</div>
 
 [![BSD-3-Clause License][license-badge]][license]
 [![Code of Conduct][code-of-conduct-badge]][code-of-conduct]
 [![PRs Welcome][prs-badge]][prs]
-
 [![Test status][test-status-badge]][test-status]
 [![Code Coverage][coveralls-badge]][coveralls]
 [![Dependencies][daviddm-badge]][daviddm]
@@ -14,6 +12,7 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+</div>
 
 <hr>
 
@@ -31,7 +30,7 @@ If you want to contribute, make sure to check out our [contributing guide][contr
 
 
 
-[code-of-conduct]: CODE_OF_CONDUCT.md
+[code-of-conduct]: ./CODE_OF_CONDUCT.md
 [code-of-conduct-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 [codeclimate]: https://codeclimate.com/github/Pokebag/api
 [codeclimate-badge]: https://img.shields.io/codeclimate/maintainability/Pokebag/api.svg?style=flat-square
@@ -43,9 +42,9 @@ If you want to contribute, make sure to check out our [contributing guide][contr
 [github-watch-badge]: https://img.shields.io/github/watchers/Pokebag/api.svg?style=social
 [github-star]: https://github.com/Pokebag/api/stargazers
 [github-star-badge]: https://img.shields.io/github/stars/Pokebag/api.svg?style=social
-[license]: LICENSE
-[license-badge]: https://img.shields.io/npm/l/@pokebag/api.svg?style=flat-square
-[prs]: CONTRIBUTING.md
+[license]: ./LICENSE.md
+[license-badge]: https://img.shields.io/badge/license-BSD--3%20Clause-green.svg?style=flat-square
+[prs]: ./CONTRIBUTING.md
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [test-status]: https://github.com/pokebag/api/actions/workflows/test.yml
 [test-status-badge]: https://img.shields.io/github/workflow/status/Pokebag/api/Test?style=flat-square&label=tests
