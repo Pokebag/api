@@ -9,7 +9,7 @@ import path from 'path'
 /**
  * Gets the current version set in `package.json`.
  *
- * @returns {string}
+ * @returns {Promise<string>}
  */
 export async function getVersion () {
 	const packagePath = path.resolve(process.cwd(), 'package.json')
