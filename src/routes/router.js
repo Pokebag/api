@@ -1,7 +1,7 @@
 // Local imports
-import { Router } from './structures/Router.js'
-import { uniteRouter } from './routes/unite/router.js'
-import { StatusRoute } from './routes/status.js'
+import { Router } from '../structures/Router.js'
+import { uniteRouter } from './unite/router.js'
+import { StatusRoute } from './status.js'
 
 
 
