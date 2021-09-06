@@ -35,16 +35,25 @@ describe(BASE_URL, () => {
 		requester.close()
 	})
 
-	it('should complete successfully', async () => {
-		const RESPONSE = await requester.get(`${BASE_URL}/crustle`)
+	it('runs successfully', async () => {
+		const RESPONSE = await requester.get(BASE_URL.replace(':pokemonID', 'crustle'))
 
 		chai.expect(RESPONSE).to.have.status(httpStatus.OK)
 			.and.to.be.json
 	})
 
-	it('should generate a JSON:API compliant body', async () => {
-		const { body } = await requester.get(BASE_URL)
+	it('returns a JSON:API compliant body', async () => {
+		const { body } = await requester.get(BASE_URL.replace(':pokemonID', 'crustle'))
 
 		chai.expect(validator.isValid(body)).to.be.true
+	})
+
+	it('includes skills', async () => {
+		const { body } = await requester.get(`${BASE_URL.replace(':pokemonID', 'crustle')}?include=skills`)
+
+		chai.expect(body.included).to.be.an('array')
+		body.included.forEach(item => {
+			chai.expect(item.type).to.equal('skill')
+		})
 	})
 })

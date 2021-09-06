@@ -1,5 +1,8 @@
 // Local imports
-import { getPokemon } from '@pokebag/data-sdk'
+import {
+	getPokemon,
+	getSkills,
+} from '@pokebag/data-sdk'
 import { Route } from '../../../structures/Route.js'
 
 
@@ -18,20 +21,74 @@ export class SinglePokemonRoute extends Route {
 	 */
 	async handler (context) {
 		try {
+			let includes = context.query.include
+			let skills = null
+
+			if (!Array.isArray(includes)) {
+				includes = [includes]
+			}
+
 			const { pokemonID } = context.params
 
 			const [POKEMON] = await getPokemon({
 				ids: [pokemonID],
-				includeSkills: true,
 				patch: context.params.patchVersion,
 			})
 
-			POKEMON.id = pokemonID
+			const RELATIONSHIPS = {
+				skills: {
+					links: {
+						related: `/unite/skills?filter[pokemon]=${POKEMON.id}`,
+					},
+				},
+			}
+
+			if (includes.includes('skills')) {
+				skills = await getSkills({ pokemonIDs: [pokemonID] })
+				// @ts-ignore
+				RELATIONSHIPS.skills.data = skills.map(skill => {
+					return {
+						id: skill.id,
+						type: 'skill',
+					}
+				})
+			}
+
+			const ATTRIBUTES = { ...POKEMON }
+
+			delete ATTRIBUTES.id
 
 			context.data = {
-				pokemon: {
-					[pokemonID]: POKEMON,
-				},
+				attributes: ATTRIBUTES,
+				id: pokemonID,
+				relationships: RELATIONSHIPS,
+				type: 'pokemon',
+			}
+
+			if (skills) {
+				// @ts-ignore
+				context.included = skills.map(skill => {
+					const SKILL_ATTRIBUTES = { ...skill }
+
+					delete SKILL_ATTRIBUTES.id
+
+					return {
+						attributes: SKILL_ATTRIBUTES,
+						id: skill.id,
+						links: {
+							self: `/unite/skills/${skill.id}`,
+						},
+						relationships: {
+							pokemon: {
+								data: {
+									id: skill.pokemonID,
+									type: 'pokemon',
+								},
+							},
+						},
+						type: 'skill',
+					}
+				})
 			}
 		} catch (error) {
 			context.errors.push(error.message)
