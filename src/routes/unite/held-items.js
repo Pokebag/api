@@ -13,17 +13,24 @@ import { Route } from '../../structures/Route.js'
 
 
 
+/**
+ * Returns all available held items.
+ */
 export class HeldItemsRoute extends Route {
 	path = '/held-items'
 
-	handler = async context => {
+	/**
+	 * Route handler
+	 * @param {*} context
+	 */
+	async handler (context) {
 		try {
 			const SHOULD_CALCULATE_STATS = JSON.parse(context.query['calculate-stats'] || 'false')
 
 			const ITEMS = await getHeldItems({ patch: context.params.patchVersion })
 
 			if (SHOULD_CALCULATE_STATS) {
-				ITEMS.forEach(item => {
+				ITEMS.forEach((item) => {
 					item.stats = calculateHeldItemStats(item)
 				})
 			}
@@ -34,8 +41,7 @@ export class HeldItemsRoute extends Route {
 					return accumulator
 				}, {}),
 			}
-		} catch(error) {
-			console.log(error)
+		} catch (error) {
 			context.errors.push(error.message)
 		}
 	}

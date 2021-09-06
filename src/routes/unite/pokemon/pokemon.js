@@ -6,10 +6,17 @@ import { Route } from '../../../structures/Route.js'
 
 
 
+/**
+ * Returns data for a single Pokémon.
+ */
 export class SinglePokemonRoute extends Route {
 	path = '/pokemon/:pokemonID'
 
-	handler = async context => {
+	/**
+	 * Route handler
+	 * @param {*} context
+	 */
+	async handler (context) {
 		try {
 			const { pokemonID } = context.params
 
@@ -26,8 +33,7 @@ export class SinglePokemonRoute extends Route {
 					[pokemonID]: POKEMON,
 				},
 			}
-		} catch(error) {
-			console.log(error)
+		} catch (error) {
 			context.errors.push(error.message)
 		}
 	}

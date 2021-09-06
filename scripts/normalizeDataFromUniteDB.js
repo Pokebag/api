@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Module imports
 import fetch from 'node-fetch'
 import fs from 'fs/promises'

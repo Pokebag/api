@@ -13,10 +13,17 @@ import { Route } from '../../../structures/Route.js'
 
 
 
+/**
+ * Returns data for a single Pokémon.
+ */
 export class SignleHeldItemRoute extends Route {
 	path = '/held-items/:itemID'
 
-	handler = async context => {
+	/**
+	 * Route handler
+	 * @param {*} context
+	 */
+	async handler (context) {
 		try {
 			const { itemID } = context.params
 
@@ -24,7 +31,7 @@ export class SignleHeldItemRoute extends Route {
 
 			const [ITEM] = await getHeldItems({
 				ids: [itemID],
-				patch: context.params.patchVersion
+				patch: context.params.patchVersion,
 			})
 
 			ITEM.id = itemID
@@ -38,8 +45,7 @@ export class SignleHeldItemRoute extends Route {
 					[itemID]: ITEM,
 				},
 			}
-		} catch(error) {
-			console.log(error)
+		} catch (error) {
 			context.errors.push(error.message)
 		}
 	}

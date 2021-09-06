@@ -1,7 +1,9 @@
 name: GH Actions - Release
 on:
   workflow_run:
-    workflows: ['GH Actions - Test']
+    workflows:
+      - 'GH Actions - Lint'
+      - 'GH Actions - Test'
     branches:
       - 'main'
       - 'v*.x.x'
@@ -14,19 +16,20 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'yarn'
 
-      - name: Install dependencies
-        run: yarn install
+    - name: Install dependencies
+      run: yarn install
 
-      - name: Release
-        run: yarn semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PORYGON_Y_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Release
+      run: yarn semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.PORYGON_Y_GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

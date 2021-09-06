@@ -1,0 +1,7 @@
+# Opt into dotfile linting
+!.*
+
+# Compiled sources
+.github
+.yarn
+node_modules

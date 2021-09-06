@@ -1,3 +1,4 @@
+/* eslint-disable @babel/no-unused-expressions */
 // Module imports
 import chai from 'chai'
 
@@ -6,6 +7,7 @@ import chai from 'chai'
 
 
 // Local imports
+import httpStatus from '../../../../src/helpers/httpStatus.js'
 import API from '../../../../src/structures/API.js'
 
 
@@ -19,7 +21,7 @@ const BASE_URL = '/status'
 
 
 
-describe(BASE_URL, function () {
+describe(BASE_URL, () => {
 	let requester = null
 
 	beforeEach(() => {
@@ -33,7 +35,7 @@ describe(BASE_URL, function () {
 	it('should complete successfully', async () => {
 		const RESPONSE = await requester.get(`${BASE_URL}/crustle`)
 
-		chai.expect(RESPONSE).to.have.status(200)
+		chai.expect(RESPONSE).to.have.status(httpStatus.OK)
 			.and.to.be.json
 	})
 })

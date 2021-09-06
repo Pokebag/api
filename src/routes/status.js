@@ -5,10 +5,17 @@ import { Route } from '../structures/Route.js'
 
 
 
+/**
+ * Health check endpoint.
+ */
 export class StatusRoute extends Route {
 	path = '/status'
 
-	handler = async context => {
+	/**
+	 * Route handler
+	 * @param {*} context
+	 */
+	handler (context) {
 		context.status = 200
 	}
 }

@@ -5,10 +5,20 @@ import KoaRouter from 'koa-router'
 
 
 
+/**
+ * Wrapper for `koa-router` that simplifies attachment of routes and subrouters.
+ *
+ * @property {KoaRouter} router
+ */
 class Router {
-	router = new KoaRouter()
+	router = new KoaRouter
 
-	addRoute(route) {
+	/**
+	 * Connects a route to the router.
+	 *
+	 * @param {*} route
+	 */
+	addRoute (route) {
 		const {
 			handler,
 			path,
@@ -19,10 +29,18 @@ class Router {
 			methods = [methods]
 		}
 
-		methods.forEach(method => this.router[method](path, handler))
+		methods.forEach((method) => {
+			return this.router[method](path, handler)
+		})
 	}
 
-	addSubRouter = (path, router) => {
+	/**
+	 * Connects a subrouter to the router.
+	 *
+	 * @param {string} path
+	 * @param {*} router
+	 */
+	addSubRouter (path, router) {
 		let localRouter = router
 
 		if (router instanceof Router) {

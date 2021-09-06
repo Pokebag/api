@@ -12,10 +12,17 @@ import { Route } from '../../structures/Route.js'
 
 
 
+/**
+ * Returns all available Pokémon.
+ */
 export class PokemonRoute extends Route {
 	path = '/pokemon'
 
-	handler = async context => {
+	/**
+	 * Route handler
+	 * @param {*} context
+	 */
+	async handler (context) {
 		try {
 			const POKEMON = await getPokemon({
 				includeSkills: true,
@@ -28,8 +35,7 @@ export class PokemonRoute extends Route {
 					return accumulator
 				}, {}),
 			}
-		} catch(error) {
-			console.log(error)
+		} catch (error) {
 			context.errors.push(error.message)
 		}
 	}
