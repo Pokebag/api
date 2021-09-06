@@ -1,7 +1,7 @@
 {
   "name": "@pokebag/api",
   "version": "1.0.0",
-  "repository": "git@github.com:pokebag/api.git",
+  "repository": "git@github.com:Pokebag/api.git",
   "license": "BSD-3-Clause",
   "private": true,
   "type": "module",
