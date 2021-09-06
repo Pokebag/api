@@ -39,7 +39,7 @@ export class SignleHeldItemRoute extends Route {
 			delete attributes.id
 
 			if (SHOULD_CALCULATE_STATS) {
-				ITEM.stats = calculateHeldItemStats(ITEM)
+				attributes.stats = calculateHeldItemStats(attributes)
 			}
 
 			context.data = {
