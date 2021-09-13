@@ -29,9 +29,15 @@ export class HeldItemsRoute extends Route {
 
 			const ITEMS = await getHeldItems({ patch: context.params.patchVersion })
 
-			const ORDERED_ITEMS = ITEMS.sort((a, b) => {
-				if (a.id > b.id) return 1
-				if (a.id < b.id) return -1
+			const ORDERED_ITEMS = ITEMS.sort((itemA, itemB) => {
+				if (itemA.id > itemB.id) {
+					return 1
+				}
+
+				if (itemA.id < itemB.id) {
+					return -1
+				}
+
 				return 0
 			})
 
