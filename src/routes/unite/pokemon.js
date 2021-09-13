@@ -29,8 +29,20 @@ export class PokemonRoute extends Route {
 				patch: context.params.patchVersion,
 			})
 
+			const ORDERED_POKEMOM = POKEMON.sort((monA, monB) => {
+				if (monA.id > monB.id) {
+					return 1
+				}
+
+				if (monA.id < monB.id) {
+					return -1
+				}
+
+				return 0
+			})
+
 			context.data = {
-				pokemon: POKEMON.reduce((accumulator, mon) => {
+				pokemon: ORDERED_POKEMOM.reduce((accumulator, mon) => {
 					accumulator[mon.id] = mon
 					return accumulator
 				}, {}),

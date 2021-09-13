@@ -29,14 +29,26 @@ export class HeldItemsRoute extends Route {
 
 			const ITEMS = await getHeldItems({ patch: context.params.patchVersion })
 
+			const ORDERED_ITEMS = ITEMS.sort((itemA, itemB) => {
+				if (itemA.id > itemB.id) {
+					return 1
+				}
+
+				if (itemA.id < itemB.id) {
+					return -1
+				}
+
+				return 0
+			})
+
 			if (SHOULD_CALCULATE_STATS) {
-				ITEMS.forEach((item) => {
+				ORDERED_ITEMS.forEach((item) => {
 					item.stats = calculateHeldItemStats(item)
 				})
 			}
 
 			context.data = {
-				items: ITEMS.reduce((accumulator, item) => {
+				items: ORDERED_ITEMS.reduce((accumulator, item) => {
 					accumulator[item.id] = item
 					return accumulator
 				}, {}),
